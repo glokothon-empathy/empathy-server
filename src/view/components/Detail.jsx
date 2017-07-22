@@ -1,5 +1,8 @@
 import React from 'react';
 import $ from 'jQuery';
+import {
+  Link,
+} from 'react-router-dom';
 
 
 export default  class Detail extends React.Component {
@@ -27,9 +30,11 @@ export default  class Detail extends React.Component {
           <div id="profileDiv">
             <div id="profileImage">
             </div>
-            <h3 id="name">
-              {this.state.name}
-            </h3>
+            <Link to={`/profile/1`}>
+              <h3 id="name">
+                {this.state.name}
+              </h3>
+            </Link>
           </div>
           <div id="titleDiv">
             <h1 id="title">

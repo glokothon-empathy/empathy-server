@@ -8,6 +8,7 @@ import CreateBrowserHistory from 'history/createBrowserHistory';
 import IdeaList from './components/IdeaList';
 import Navbar from './components/Navbar';
 import Detail from './components/Detail';
+import Profile from './components/Profile';
 
 const history = CreateBrowserHistory();
 
@@ -17,6 +18,7 @@ ReactDOM.render(
       <Navbar />
       <Route exact path="/" component={IdeaList} />
       <Route exact path="/detail/:idea_id" component={Detail} />
+      <Route exact path="/profile/:owner_id" component={Profile} />
     </div>
   </Router>
   , document.getElementById('root'),
