@@ -77,7 +77,6 @@ ideasRouter.post('/:id/comments', (req, res) => {
   );
 });
 
-// 리스트 - GET /ideas/{id}/comments
 // 아이디어 댓글 리스트
 ideasRouter.get('/:idea_id/comments/', (req, res) => {
   const ideaId = req.params.idea_id;
@@ -94,7 +93,6 @@ ideasRouter.get('/:idea_id/comments/', (req, res) => {
   );
 });
 
-// 수정 - PUT /ideas/{id}/comments/{id}
 // 아이디어 댓글 수정
 ideasRouter.put('/:idea_id/comments/:comment_id', (req, res) => {
   const ideaId = req.params.idea_id;
@@ -113,9 +111,21 @@ ideasRouter.put('/:idea_id/comments/:comment_id', (req, res) => {
   );
 });
 
-// 삭제 - DELETE /ideas/{id}/comments/{id}
 // 아이디어 댓글 삭제
+ideasRouter.delete('/:idea_id/comments/:comment_id', (req, res) => {
+  const ideaId = req.params.idea_id;
+  const commentId = req.params.comment_id;
 
-
+  connection.query(
+    `DELETE FROM idea_comment WHERE id = ${commentId} AND idea_id = ${ideaId};`,
+    (err, results, fields) => {
+      if (err) {
+        res.status(400).json({});
+        console.log(err.stack);
+      }
+      res.status(200).json(results);
+    }
+  );
+});
 
 export default ideasRouter;
