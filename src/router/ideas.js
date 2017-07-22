@@ -21,7 +21,7 @@ ideasRouter.post('/', (req, res) => {
 ideasRouter.delete('/', (req, res) => {
   const { id } = req.body;
   connection.query(
-    `delete from idea where ${id};`,
+    `delete from idea where id=${id};`,
     (error, results, fields) => {
       if (error) {
         console.log(error.stack);
@@ -32,7 +32,17 @@ ideasRouter.delete('/', (req, res) => {
 });
 
 ideasRouter.put('/', (req, res) => {
-  
+  const { id, contents } = req.body;
+  connection.query(
+    `update idea set contents="${contents}" where id=${id};`,
+    (error, results, fields) => {
+      if (error) {
+        res.status(500).json({ msg: 'FAIL' });
+        console.log(error.stack);
+      }
+      res.status(200).json(results);
+    }
+  );
 });
 
 ideasRouter.get('/', (req, res) => {
