@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const PRODUCTION = process.env.NODE_ENV === 'production';
 
 module.exports = {
   entry: [
