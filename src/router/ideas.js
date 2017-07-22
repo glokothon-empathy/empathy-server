@@ -94,9 +94,24 @@ ideasRouter.get('/:idea_id/comments/', (req, res) => {
   );
 });
 
-
 // 수정 - PUT /ideas/{id}/comments/{id}
 // 아이디어 댓글 수정
+ideasRouter.put('/:idea_id/comments/:comment_id', (req, res) => {
+  const ideaId = req.params.idea_id;
+  const commentId = req.params.comment_id;
+  const { contents, user_id } = req.body;
+
+  connection.query(
+    `UPDATE idea_comment SET contents = "${contents}" WHERE id = ${commentId};`,
+    (err, results, fields) => {
+      if (err) {
+        res.status(400).json({});
+        console.log(err.stack);
+      }
+      res.status(200).json(results);
+    }
+  );
+});
 
 // 삭제 - DELETE /ideas/{id}/comments/{id}
 // 아이디어 댓글 삭제
