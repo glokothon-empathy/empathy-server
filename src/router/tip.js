@@ -60,7 +60,7 @@ tipRouter.get('/', (req, res) => {
   const userId = req.app.get('user_id');
 
   req.app.get('pool').query(
-    `SELECT tip.tip_id, tip.title, tip.contents, tip.empathy_count, user.name
+    `SELECT tip.tip_id, tip.title, tip.contents, tip.empathy_count, tip.tip_image, user.name
 	   FROM tip 
      INNER JOIN user ON user.user_id = tip.user_id;`,
     (err, results, fields) => {
@@ -78,7 +78,7 @@ tipRouter.get('/:tip_id', (req, res) => {
   const userId = req.app.get('user_id');
   const tipId = req.params.tip_id;
   req.app.get('pool').query(
-    `SELECT tip.tip_id, tip.title, tip.contents, tip.empathy_count, user.name
+    `SELECT tip.tip_id, tip.title, tip.contents, tip.empathy_count, tip.tip_image, user.user_id, user.name
 	   FROM tip 
      INNER JOIN user ON user.user_id = tip.user_id
      WHERE tip_id = ${tipId};`,

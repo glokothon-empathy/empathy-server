@@ -35,7 +35,7 @@ export default class Board extends React.Component {
         <div className="container">
           <h1>아이디어 등록하기</h1>
         </div>
-        <hr />
+        <hr/>
         <div id="formDiv">
           <div className="form-group">
             <label for="title">제목 :</label>

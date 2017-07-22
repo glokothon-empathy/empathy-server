@@ -14,6 +14,10 @@ export default () => (
         <li className="item">
           <Link to="/board">Write</Link>
         </li>
+        
+        <li className="item">
+          <Link to="/tips">Tip</Link>
+        </li>
 
         <li className="item">
           <a href="#">About</a>
