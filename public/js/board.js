@@ -1,10 +1,10 @@
 $(function() {
     // click on button submit
     $("#submitBtn").click(function() {
-        
+  
         var data = {
-            title : $("#title").val(),
-            contents : $("#contents").val()
+            title : $("#formDiv").find("#title").val(),
+            contents : $("#formDiv").find("#contents").val()
         };
 
         $.ajax({
