@@ -5,13 +5,14 @@ const ideasRouter = express.Router();
 /******* 아이디어 *******/
 // 아이디어 추가
 ideasRouter.post('/', (req, res) => {
-  const { contents } = req.body;
+  const { title, contents } = req.body;
   const userId = req.app.get('user_id');
 
   req.app.get('pool').query(
-    `INSERT INTO idea (contents, user_id) VALUES("${contents}", ${userId});`,
+    `INSERT INTO idea (title, contents, user_id) VALUES("${title}", "${contents}", ${userId});`,
     (err, results, fields) => {
       if (err) {
+        res.status(500).json({ msg: 'FAIL' });
         console.log(err.stack);
       }
       res.json(results);
@@ -21,12 +22,12 @@ ideasRouter.post('/', (req, res) => {
 
 // 아이디어 수정
 ideasRouter.put('/:idea_id', (req, res) => {
-  const { contents } = req.body;
+  const { title, contents } = req.body;
   const ideaId = req.params.idea_id;
   const userId = req.app.get('user_id');
 
   req.app.get('pool').query(
-    `UPDATE idea SET contents = "${contents}" WHERE idea_id = ${ideaId};`,
+    `UPDATE idea SET title = "${title}", contents = "${contents}" WHERE idea_id = ${ideaId};`,
     (err, results, fields) => {
       if (err) {
         res.status(500).json({ msg: 'FAIL' });
@@ -59,7 +60,7 @@ ideasRouter.get('/', (req, res) => {
   const userId = req.app.get('user_id');
 
   req.app.get('pool').query(
-    `SELECT id, contents, empathy_count, join_count FROM idea;`,
+    `SELECT idea_id, title, contents, empathy_count, join_count FROM idea;`,
     (err, results, fields) => {
       if (err) {
         res.status(500).json({ msg: 'FAIL' });
@@ -76,7 +77,7 @@ ideasRouter.get('/:idea_id', (req, res) => {
   const ideaId = req.params.idea_id;
 
   req.app.get('pool').query(
-    `SELECT (id, contents, empathy_count, join_count) FROM idea WHERE idea_id = ${ideaId};`,
+    `SELECT idea_id, title, contents, empathy_count, join_count FROM idea WHERE idea_id = ${ideaId};`,
     (err, results, fields) => {
       if (err) {
         res.status(500).json({ msg: 'FAIL' });

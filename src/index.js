@@ -6,9 +6,10 @@ import mysql from 'mysql';
 import mysqlConfig from './mysql.config';
 
 import ideasRouter from './router/ideas';
+import userRouter from './router/user';
 
 const app = express();
-const PORT = 8001;
+const PORT = 3000;
 const connection = mysql.createPool(mysqlConfig);
 
 // 미들웨어
@@ -22,6 +23,7 @@ app.set('user_id', 1);
 // 라우터 설정
 app.use(express.static(path.resolve(__dirname, '../public')));
 app.use('/ideas', ideasRouter);
+app.use('/users', userRouter);
 
 app.listen(PORT, (err) => {
   if(err) {
