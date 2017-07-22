@@ -26,7 +26,7 @@ ideasRouter.put('/:idea_id', (req, res) => {
   const userId = req.app.get('user_id');
 
   req.app.get('pool').query(
-    `UPDATE idea SET contents = "${contents}" WHERE id = ${ideaId};`,
+    `UPDATE idea SET contents = "${contents}" WHERE idea_id = ${ideaId};`,
     (err, results, fields) => {
       if (err) {
         res.status(500).json({ msg: 'FAIL' });
@@ -76,7 +76,7 @@ ideasRouter.get('/:idea_id', (req, res) => {
   const ideaId = req.params.idea_id;
 
   req.app.get('pool').query(
-    `SELECT (id, contents, empathy_count, join_count) FROM idea WHERE id = ${ideaId};`,
+    `SELECT (id, contents, empathy_count, join_count) FROM idea WHERE idea_id = ${ideaId};`,
     (err, results, fields) => {
       if (err) {
         res.status(500).json({ msg: 'FAIL' });
@@ -114,7 +114,7 @@ ideasRouter.put('/:idea_id/comments/:comment_id', (req, res) => {
   const userId = req.app.get('user_id');
 
   req.app.get('pool').req.app.get('pool').query(
-    `UPDATE idea_comment SET contents = "${contents}" WHERE id = ${commentId};`,
+    `UPDATE idea_comment SET contents = "${contents}" WHERE comment_id = ${commentId};`,
     (err, results, fields) => {
       if (err) {
         res.status(500).json({ msg: 'FAIL' });
@@ -172,7 +172,18 @@ ideasRouter.post('/:idea_id/empathy', (req, res) => {
         res.status(500).json({ msg: 'FAIL' });
         console.log(err.stack);
       }
-      res.status(200).json(results);
+
+      req.app.get('pool').query(
+        `UPDATE idea SET empathy_count = empathy_count + 1 WHERE idea_id = ${ideaId};`,
+        (err, results, fields) => {
+          if(err){
+            res.status(500).json({ msg: 'FAIL' });
+            console.log(err.stack);
+          }
+
+          res.status(200).json(results);
+        }
+      );
     }
   );
 });
@@ -189,7 +200,17 @@ ideasRouter.delete('/:idea_id/empathy', (req, res) => {
         res.status(500).json({ msg: 'FAIL' });
         console.log(err.stack);
       }
-      res.status(200).json({ msg: 'OK' });
+      req.app.get('pool').query(
+        `UPDATE idea SET empathy_count = empathy_count - 1 WHERE idea_id = ${ideaId};`,
+        (err, results, fields) => {
+          if(err){
+            res.status(500).json({ msg: 'FAIL' });
+            console.log(err.stack);
+          }
+
+          res.status(200).json(results);
+        }
+      );
     }
   );
 });
@@ -207,7 +228,16 @@ ideasRouter.post('/:idea_id/join', (req, res) => {
         res.status(500).json({ msg: 'FAIL' });
         console.log(err.stack);
       }
-      res.status(200).json(results);
+      req.app.get('pool').query(
+        `UPDATE idea SET join_count = join_count + 1 WHERE idea_id = ${ideaId};`,
+        (err, results, fields) => {
+          if(err){
+            res.status(500).json({ msg: 'FAIL' });
+            console.log(err.stack);
+          }
+          res.status(200).json(results);
+        }
+      );
     }
   );
 });
@@ -224,7 +254,16 @@ ideasRouter.delete('/:idea_id/join', (req, res) => {
         res.status(500).json({ msg: 'FAIL' });
         console.log(err.stack);
       }
-      res.status(200).json({ msg: 'OK' });
+      req.app.get('pool').query(
+        `UPDATE idea SET join_count = join_count - 1 WHERE idea_id = ${ideaId};`,
+        (err, results, fields) => {
+          if(err){
+            res.status(500).json({ msg: 'FAIL' });
+            console.log(err.stack);
+          }
+          res.status(200).json(results);
+        }
+      );
     }
   );
 });
