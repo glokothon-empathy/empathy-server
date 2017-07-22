@@ -74,7 +74,6 @@ ideasRouter.get('/', (req, res) => {
 ideasRouter.get('/:idea_id', (req, res) => {
   const userId = req.app.get('user_id');
   const ideaId = req.params.idea_id;
-
   req.app.get('pool').query(
     `SELECT (id, contents, empathy_count, join_count) FROM idea WHERE id = ${ideaId};`,
     (err, results, fields) => {
@@ -233,7 +232,6 @@ ideasRouter.delete('/:idea_id/join', (req, res) => {
 ideasRouter.get('/:idea_id/join', (req, res) => {
   const ideaId = req.params.idea_id;
   const userId = req.app.get('user_id');
-
   req.app.get('pool').query(
     `SELECT user.id, user.name FROM idea_join INNER JOIN user ON user.id = idea_join.user_id WHERE idea_id = ${ideaId};`,
     (err, results, fields) => {
