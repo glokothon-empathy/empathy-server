@@ -9,7 +9,10 @@ userRouter.get('/profiles', (req, res) => {
   const ownerId = req.query.owner;
 
   req.app.get('pool').query(
-    `SELECT name, email, phone_no, profile_image FROM user WHERE user_id = ${ownerId};`,
+    `SELECT user.name, user.email, user.phone_no, user.profile_image, user_info.interest_world, user_info.contents
+     FROM user
+     INNER JOIN user_info ON user.user_id = user_info.user_id
+     WHERE user.user_id = ${ownerId};`,
     (err, results, fields) => {
       if (err) {
         res.status(500).json({ msg: 'FAIL' });
