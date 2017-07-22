@@ -35,7 +35,6 @@ export default class Board extends React.Component {
         <div class="container">
           <h1>아이디어 등록하기</h1>
         </div>
-
         <hr />
         <div id="formDiv">
           <div class="form-group">
@@ -51,4 +50,4 @@ export default class Board extends React.Component {
       </div>
     );
   }
-}
+};
