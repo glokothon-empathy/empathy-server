@@ -180,11 +180,12 @@ ideasRouter.delete('/:id/empathy/:empathy_id', (req, res) => {
 
 /******* 아이디어 참여 *******/
 // 아이디어 참여 추가
-ideasRouter.post('/:id/join', (req, res) => {
-  const { user_id, idea_id } = req.body;
+ideasRouter.post('/:idea_id/join', (req, res) => {
+  const { user_id } = req.body;
+  const ideaId = req.params.idea_id;
 
   connection.query(
-    `INSERT INTO idea_join (user_id, idea_id) VALUES(${user_id}, ${idea_id});`,
+    `INSERT INTO idea_join (user_id, idea_id) VALUES(${user_id}, ${ideaId});`,
     (err, results, fields) => {
       if (err) {
         res.status(400).json({});
@@ -196,8 +197,8 @@ ideasRouter.post('/:id/join', (req, res) => {
 });
 
 // 아이디어 참여 삭제
-ideasRouter.delete('/:id/join/:join_id', (req, res) => {
-  const ideaId = req.params.id;
+ideasRouter.delete('/:idea_id/join/:join_id', (req, res) => {
+  const ideaId = req.params.idea_id;
   const joinId = req.params.join_id;
 
   connection.query(
