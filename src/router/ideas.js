@@ -78,7 +78,7 @@ ideasRouter.get('/:idea_id', (req, res) => {
   const userId = req.app.get('user_id');
   const ideaId = req.params.idea_id;
   req.app.get('pool').query(
-    `SELECT idea.idea_id, idea.title, idea.contents, idea.empathy_count, user.name
+    `SELECT idea.idea_id, idea.title, idea.contents, idea.empathy_count, user.name, user.user_id
 	   FROM idea 
      INNER JOIN user ON user.user_id = idea.user_id
      WHERE idea_id = ${ideaId};`,

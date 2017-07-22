@@ -8,11 +8,11 @@ export default () => (
     <div className="navbar">
       <ul className="nav">
         <li className="item">
-          <a href="#">Home</a>
+          <Link to="/">Home</Link>
         </li>
 
         <li className="item">
-          <a href="#">Blog</a>
+          <Link to="/board">Write</Link>
         </li>
 
         <li className="item">
