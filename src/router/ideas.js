@@ -32,7 +32,7 @@ ideasRouter.put('/', (req, res) => {
   );
 });
 
-
+// 아이디어 삭제
 ideasRouter.delete('/', (req, res) => {
   const { id } = req.body;
   req.app.get('pool').query(
