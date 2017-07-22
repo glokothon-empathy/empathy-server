@@ -1,4 +1,7 @@
 node_modules/
 build/
+
+# local files
 .DS_Store
+*.log
 *.swp
