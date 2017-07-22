@@ -1,19 +1,26 @@
 $(function() {
     // click on button submit
     $("#submitBtn").click(function() {
-        // send ajax
+        
+        var data = {
+            title : $("#title").val(),
+            contents : $("#contents").val()
+        };
+
         $.ajax({
-            url: '#', // url where to submit the request
-            type : "POST", // type of action POST || GET
+            url: '/ideas', // url where to submit the request
+            type : 'post', // type of action POST || GET
             dataType : 'json', // data type
-            data : $("#formDiv").serialize(), // post data || get data
-            success : function(result) {
+            contentType: 'application/json',
+            data : JSON.stringify(data), // $("#formDiv").serialize(), // post data || get data
+            // processData: false,
+            success : function(result, textStatus, jQxhr) {
                 // you can see the result from the console
                 // tab of the developer tools
-                alert(result);
+                alert("SUCCESS");
             },
-            error: function(xhr, resp, text) {
-                alert(xhr, resp, text);
+            error: function(xhr, textStatus, err) {
+                alert("Fail");
             }
         })
     });
