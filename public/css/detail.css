@@ -1,0 +1,34 @@
+<style>
+	@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+	* { margin: 0px; padding: 0px; font-family: 'Noto Sans KR', sans-serif; }
+
+	hr { width: 60%; }
+
+	#header { width: 60%; height: 200px; margin-left: 20%; padding-top: 60px; }
+
+	#header > #profileDiv { width: 15%; height: 100%; float: left; }
+	#header > #profileDiv > #profileImage { width: 50%; padding-top: 50%; border-radius: 100%; background-image: url("../img/bg.jpg"); background-size: cover; box-shadow: 2px 2px 1px lightgray; }
+	#header > #profileDiv > #name { margin-top: 10px; }
+
+	#header > #titleDiv { width: 85%; height: 100%; float: right; }
+	#header > #titleDiv > #title { font-weight: 600; }
+
+	#content { width: 60%; height: 500px; margin-left: 20%; margin-bottom: 30px; padding: 0 20px 20px 20px; overflow: hidden; }
+
+	#content > #contentTitle { font-size: 1.5em; font-weight: 600; }
+	#content > #contentContent { font-size: 1.5em; margin-left: 10px; height: 450px; }
+
+	#optDiv { height: 50px; margin-top: 50px; padding-left: 20%; }
+
+	#optDiv > h3 { margin: 0; font-size: 1.5em; cursor: pointer;  float: left; margin-right: 30px; }
+	#optDiv > #comment { }
+
+	#buttonDiv { width: 60%; height: 50px; margin-left: 20%; }
+	#buttonDiv > button { float: right; margin-left: 10px; }
+	#buttonDiv > button > .glyphicon { color: red; margin-right: 5px; filter: grayscale(100); }
+
+	
+	
+
+</style>

@@ -4,13 +4,13 @@ import {
   BrowserRouter as Router,
 } from 'react-router-dom';
 import CreateBrowserHistory from 'history/createBrowserHistory';
-import IdeaList from './components/IdeaList';
+import App from './components/App';
 
 const history = CreateBrowserHistory();
 
 ReactDOM.render(
   <Router basename="/" history={history}>
-    <IdeaList />
+    <App />
   </Router>
   , document.getElementById('root'),
 );
