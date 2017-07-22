@@ -5,6 +5,8 @@ import mysqlConfig from '../mysql.config';
 const connection = mysql.createConnection(mysqlConfig);
 const ideasRouter = express.Router();
 
+/******* 아이디어 *******/
+// 아이디어 추가
 ideasRouter.post('/', (req, res) => {
   const { contents, user_id } = req.body;
   connection.query(
@@ -18,19 +20,7 @@ ideasRouter.post('/', (req, res) => {
   );
 });
 
-ideasRouter.delete('/', (req, res) => {
-  const { id } = req.body;
-  connection.query(
-    `delete from idea where id=${id};`,
-    (error, results, fields) => {
-      if (error) {
-        console.log(error.stack);
-      }
-      res.json({ msg: 'OK' });
-    }
-  );
-});
-
+// 아이디어 수정
 ideasRouter.put('/', (req, res) => {
   const { id, contents } = req.body;
   connection.query(
@@ -45,6 +35,21 @@ ideasRouter.put('/', (req, res) => {
   );
 });
 
+// 아이디어 삭제
+ideasRouter.delete('/', (req, res) => {
+  const { id } = req.body;
+  connection.query(
+    `delete from idea where id=${id};`,
+    (error, results, fields) => {
+      if (error) {
+        console.log(error.stack);
+      }
+      res.status(200).json({ msg: 'OK' });
+    }
+  );
+});
+
+// 아이디어 리스트 조회
 ideasRouter.get('/', (req, res) => {
   connection.query(
     `select * from idea;`,
@@ -58,6 +63,7 @@ ideasRouter.get('/', (req, res) => {
   );
 });
 
+// 아이디어 상세 조회
 ideasRouter.get('/:id', (req, res) => {
   connection.query(
     `select * from idea where id=${req.params.id};`,
@@ -77,22 +83,6 @@ ideasRouter.post('/:id/comments', (req, res) => {
   const { contents, user_id, idea_id } = req.body;
   connection.query(
     `INSERT INTO idea_comment (contents, user_id, idea_id) VALUES("${contents}", ${user_id}, ${idea_id});`,
-    (err, results, fields) => {
-      if (err) {
-        res.status(400).json({});
-        console.log(err.stack);
-      }
-      res.status(200).json(results);
-    }
-  );
-});
-
-// 아이디어 댓글 리스트
-ideasRouter.get('/:idea_id/comments/', (req, res) => {
-  const ideaId = req.params.idea_id;
-
-  connection.query(
-    `SELECT (id, contents, user_id, created_at, updated_at FROM idea_comment WHERE idea_id = ${ideaId};`,
     (err, results, fields) => {
       if (err) {
         res.status(400).json({});
@@ -133,9 +123,60 @@ ideasRouter.delete('/:idea_id/comments/:comment_id', (req, res) => {
         res.status(400).json({});
         console.log(err.stack);
       }
+      res.status(200).json({ msg: 'OK' });
+    }
+  );
+});
+
+// 아이디어 댓글 리스트
+ideasRouter.get('/:idea_id/comments/', (req, res) => {
+  const ideaId = req.params.idea_id;
+
+  connection.query(
+    `SELECT (id, contents, user_id, created_at, updated_at FROM idea_comment WHERE idea_id = ${ideaId};`,
+    (err, results, fields) => {
+      if (err) {
+        res.status(400).json({});
+        console.log(err.stack);
+      }
       res.status(200).json(results);
     }
   );
 });
+
+/******* 아이디어 공감 *******/
+// 아이디어 공감 추가
+ideasRouter.post('/:id/empathy', (req, res) => {
+  const { user_id, idea_id } = req.body;
+
+  connection.query(
+    `INSERT INTO idea_empathy (user_id, idea_id) VALUES(${user_id}, ${idea_id});`,
+    (err, results, fields) => {
+      if (err) {
+        res.status(400).json({});
+        console.log(err.stack);
+      }
+      res.status(200).json(results);
+    }
+  );
+});
+
+// 아이디어 공감 삭제
+ideasRouter.delete('/:id/empathy/:empathy_id', (req, res) => {
+  const ideaId = req.params.id;
+  const empathyId = req.params.empathy_id;
+
+  connection.query(
+    `DELETE FROM idea_empathy WHERE id = ${empathyId} AND idea_id = ${ideaId};`,
+    (err, results, fields) => {
+      if (err) {
+        res.status(400).json({});
+        console.log(err.stack);
+      }
+      res.status(200).json({ msg: 'OK' });
+    }
+  );
+});
+
 
 export default ideasRouter;
