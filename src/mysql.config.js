@@ -1,4 +1,5 @@
 module.exports = {
+  connectionLimit : 10,
   host     : '10.10.10.146',
   port     : 3307,
   user     : 'ethan',
