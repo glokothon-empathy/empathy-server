@@ -9,7 +9,8 @@ userRouter.get('/profiles', (req, res) => {
   const ownerId = req.query.owner;
 
   req.app.get('pool').query(
-    `SELECT user.name, user.email, user.phone_no, user.profile_image, user_info.interest_world, user_info.contents
+    `SELECT user.name, user.email, user.phone_no, user.profile_image, user_info.interest_world, user_info.contents,
+      (SELECT COUNT(1) FROM idea_empathy WHERE user.user_id = 1 ) as empathy_count
      FROM user
      INNER JOIN user_info ON user.user_id = user_info.user_id
      WHERE user.user_id = ${ownerId};`,
