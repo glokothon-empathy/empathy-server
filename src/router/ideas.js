@@ -15,7 +15,7 @@ ideasRouter.post('/', (req, res) => {
         res.status(500).json({ msg: 'FAIL' });
         console.log(err.stack);
       }
-      res.json(results);
+      res.status(200).json(results);
     }
   );
 });
@@ -60,7 +60,9 @@ ideasRouter.get('/', (req, res) => {
   const userId = req.app.get('user_id');
 
   req.app.get('pool').query(
-    `SELECT idea_id, title, contents, empathy_count, join_count FROM idea;`,
+    `SELECT idea.idea_id, idea.title, idea.contents, idea.empathy_count, user.name
+	   FROM idea 
+     INNER JOIN user ON user.user_id = idea.user_id;`,
     (err, results, fields) => {
       if (err) {
         res.status(500).json({ msg: 'FAIL' });
@@ -77,7 +79,10 @@ ideasRouter.get('/:idea_id', (req, res) => {
   const ideaId = req.params.idea_id;
 
   req.app.get('pool').query(
-    `SELECT idea_id, title, contents, empathy_count, join_count FROM idea WHERE idea_id = ${ideaId};`,
+    `SELECT idea.idea_id, idea.title, idea.contents, idea.empathy_count, user.name
+	   FROM idea 
+     INNER JOIN user ON user.user_id = idea.user_id
+     WHERE idea_id = ${ideaId};`,
     (err, results, fields) => {
       if (err) {
         res.status(500).json({ msg: 'FAIL' });
