@@ -1,5 +1,5 @@
 import React from 'react';
-import $ from 'jQuery';
+import $ from 'jquery';
 import {
   Link,
 } from 'react-router-dom';
@@ -9,6 +9,7 @@ export default  class Detail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user_id: '',
       name: '',
       title: '',
       contents: '',
@@ -30,7 +31,7 @@ export default  class Detail extends React.Component {
           <div id="profileDiv">
             <div id="profileImage">
             </div>
-            <Link to={`/profile/1`}>
+            <Link to={`/profile/${this.state.user_id}`}>
               <h3 id="name">
                 {this.state.name}
               </h3>
