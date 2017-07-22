@@ -24,8 +24,9 @@ export default class IdeaList extends React.Component {
       <div className="row">
         {chunk.map((idea, idx) => (
           <Idea
-            id={idea.user_id}
+            id={idea.idea_id}
             title={idea.title}
+            name={idea.name}
             empathy_count={idea.empathy_count}
           />))
         }
@@ -37,7 +38,9 @@ export default class IdeaList extends React.Component {
     return (
       <div className="container">
         <div className="col-lg-12">
-            <h2 className="page-header" id="idea_header">아이디어 공모 <small>당신의 멋진 아이디어를 뽐내 보세요!</small></h2> 
+          <h2 className="page-header" id="idea_header">아이디어 공모
+            <small>당신의 멋진 아이디어를 뽐내 보세요!</small>
+          </h2> 
         </div>
         {this.mapIdeas(this.state.ideas)}
       </div>

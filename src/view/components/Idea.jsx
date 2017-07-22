@@ -1,10 +1,13 @@
 import React from 'react';
+import {
+  Link,
+} from 'react-router-dom';
 
-export default ({ title, writer, empathy_count }) => (
+export default ({id, title, name, empathy_count }) => (
   <div className="col-lg-3 col-sm-6 text-center" id="idea">
     <img className="img-center img-idea" src="/img/firefighter.jpg" />
-    <h3 className="idea-tit">{title}</h3>
-    <small className="writer">{writer} </small>
+    <Link to={`/detail/${id}`}><h3 className="idea-tit">{title}</h3></Link>
+    <small className="writer">{name} </small>
 
     <div className="heart_btn">
       <span className="glyphicon glyphicon-heart" aria-hidden="true"></span>

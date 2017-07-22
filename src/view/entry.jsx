@@ -2,15 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
+  Route,
 } from 'react-router-dom';
 import CreateBrowserHistory from 'history/createBrowserHistory';
-import App from './components/App';
+import IdeaList from './components/IdeaList';
+import Navbar from './components/Navbar';
+import Detail from './components/Detail';
 
 const history = CreateBrowserHistory();
 
 ReactDOM.render(
   <Router basename="/" history={history}>
-    <App />
+    <div>
+      <Navbar />
+      <Route exact path="/" component={IdeaList} />
+      <Route exact path="/detail/:idea_id" component={Detail} />
+    </div>
   </Router>
   , document.getElementById('root'),
 );
