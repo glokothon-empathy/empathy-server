@@ -59,7 +59,7 @@ ideasRouter.get('/', (req, res) => {
   const userId = req.app.get('user_id');
 
   req.app.get('pool').query(
-    `SELECT (id, contents, empathy_count, join_count) FROM idea;`,
+    `SELECT id, contents, empathy_count, join_count FROM idea;`,
     (err, results, fields) => {
       if (err) {
         res.status(500).json({ msg: 'FAIL' });
@@ -147,9 +147,8 @@ ideasRouter.delete('/:idea_id/comments/:comment_id', (req, res) => {
 ideasRouter.get('/:idea_id/comments', (req, res) => {
   const ideaId = req.params.idea_id;
   const userId = req.app.get('user_id');
-
   req.app.get('pool').query(
-    `SELECT (id, contents, user_id, created_at, updated_at) FROM idea_comment WHERE idea_id = ${ideaId};`,
+    `SELECT id, contents, user_id, created_at, updated_at FROM idea_comment WHERE idea_id = ${ideaId};`,
     (err, results, fields) => {
       if (err) {
         res.status(500).json({ msg: 'FAIL' });
@@ -167,7 +166,7 @@ ideasRouter.post('/:idea_id/empathy', (req, res) => {
   const userId = req.app.get('user_id');
 
   req.app.get('pool').query(
-    `INSERT INTO idea_empathy (user_id, idea_id) VALUES(${user_id}, ${idea_id});`,
+    `INSERT INTO idea_empathy (user_id, idea_id) VALUES(${userId}, ${ideaId});`,
     (err, results, fields) => {
       if (err) {
         res.status(500).json({ msg: 'FAIL' });
@@ -184,7 +183,7 @@ ideasRouter.delete('/:idea_id/empathy', (req, res) => {
   const userId = req.app.get('user_id');
 
   req.app.get('pool').query(
-    `DELETE FROM idea_empathy WHERE id = ${empathyId} AND idea_id = ${ideaId};`,
+    `DELETE FROM idea_empathy WHERE user_id = ${userId} AND idea_id = ${ideaId};`,
     (err, results, fields) => {
       if (err) {
         res.status(500).json({ msg: 'FAIL' });
@@ -200,9 +199,9 @@ ideasRouter.delete('/:idea_id/empathy', (req, res) => {
 ideasRouter.post('/:idea_id/join', (req, res) => {
   const ideaId = req.params.idea_id;
   const userId = req.app.get('user_id');
-
-  connection.query(
-    `INSERT INTO idea_join (user_id, idea_id) VALUES(${user_id}, ${ideaId});`,
+  
+  req.app.get('pool').query(
+    `INSERT INTO idea_join (user_id, idea_id) VALUES(${userId}, ${ideaId});`,
     (err, results, fields) => {
       if (err) {
         res.status(500).json({ msg: 'FAIL' });
@@ -218,7 +217,7 @@ ideasRouter.delete('/:idea_id/join', (req, res) => {
   const ideaId = req.params.idea_id;
   const userId = req.app.get('user_id');
 
-  connection.query(
+  req.app.get('pool').query(
     `DELETE FROM idea_join WHERE user_id = ${userId} AND idea_id = ${ideaId};`,
     (err, results, fields) => {
       if (err) {
@@ -235,8 +234,8 @@ ideasRouter.get('/:idea_id/join', (req, res) => {
   const ideaId = req.params.idea_id;
   const userId = req.app.get('user_id');
 
-  connection.query(
-    `SELECT (user.id, user.name) FROM idea_join INNER JOIN user ON user.id = idea_join.user_id WHERE idea_id = ${ideaId};`,
+  req.app.get('pool').query(
+    `SELECT user.id, user.name FROM idea_join INNER JOIN user ON user.id = idea_join.user_id WHERE idea_id = ${ideaId};`,
     (err, results, fields) => {
       if (err) {
         res.status(500).json({ msg: 'FAIL' });
