@@ -3,6 +3,7 @@ import _ from 'lodash';
 import $ from 'jquery';
 import Idea from './Idea';
 
+
 export default class IdeaList extends React.Component {
   constructor(props) {
     super(props);

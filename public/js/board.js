@@ -1,27 +1,29 @@
 $(function() {
+    var server_ip = "http://127.0.0.1:3000/ideas";
     // click on button submit
     $("#submitBtn").click(function() {
-  
-        var data = {
-            title : $("#formDiv").find("#title").val(),
-            contents : $("#formDiv").find("#contents").val()
-        };
 
+        alert(typeof 'aa');
+        alert(typeof 'bb');
+
+        // send ajax
         $.ajax({
-            url: '/ideas', // url where to submit the request
-            type : 'post', // type of action POST || GET
-            dataType : 'json', // data type
+            url: server_ip, // url where to submit the request
+            type: "POST", // type of action POST || GET
+            dataType: "json", // data type.
             contentType: 'application/json',
-            data : JSON.stringify(data), // $("#formDiv").serialize(), // post data || get data
-            // processData: false,
-            success : function(result, textStatus, jQxhr) {
-                // you can see the result from the console
-                // tab of the developer tools
-                alert("SUCCESS");
+            async: false,
+            data: {
+                title: "aa",
+                contents: "aaa"
+            }, // post data || get data
+            success : function(result) {
+                console.log(result);
             },
-            error: function(xhr, textStatus, err) {
-                alert("Fail");
+            error: function(e) {
+                console.log(e);
+                alert("FAILED!");
             }
-        })
+        });
     });
 });

@@ -4,7 +4,6 @@ import {
   Link,
 } from 'react-router-dom';
 
-
 export default  class Detail extends React.Component {
   constructor(props) {
     super(props);
@@ -15,6 +14,7 @@ export default  class Detail extends React.Component {
       contents: '',
       empathy_count: 0,
     };
+    this.handleEmpathy = this.handleEmpathy.bind(this);
   }
 
   componentDidMount() {
@@ -22,6 +22,22 @@ export default  class Detail extends React.Component {
       .done((data) => {
         this.setState(data);
       });
+  }
+
+  handleEmpathy(e) {
+    $.ajax({
+      url: `/ideas/${this.props.match.params.idea_id}/empathy`, 
+      type : 'post',
+      dataType : 'json', 
+    }).done((result, textStatus, jQxhr) => {
+      this.setState({
+        empathy_count: this.state.empathy_count + 1
+      });
+    }).fail((xhr, textStatus, err) => {
+      this.setState({
+        empathy_count: this.state.empathy_count - 1
+      });
+    });
   }
 
   render() {
@@ -61,7 +77,7 @@ export default  class Detail extends React.Component {
             함께 해요
           </button>
 
-          <button type="button" className="btn btn-success">
+          <button type="button" className="btn btn-success" onClick={this.handleEmpathy}>
             <span className="glyphicon glyphicon-heart"></span>
             공감
           </button>

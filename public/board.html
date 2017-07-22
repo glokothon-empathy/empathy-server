@@ -7,25 +7,30 @@
 	<link rel="stylesheet" href="lib/bootstrap.min.css">
 </head>
 <body>
-	<div class="container">
-		<h1>아이디어 등록하기</h1>
-	</div>
+	<div id="boardDiv">
+		<div class="container">
+			<h1>아이디어 등록하기</h1>
+		</div>
 
-	<hr>
-	<div id="formDiv">
-		<div class="form-group">
-			<label for="title">제목 :</label>
-			<input type="text" class="form-control" id="title" placeholder="제목을 입력하세요.">
+		<hr>
+		<div id="formDiv">
+			<div class="form-group">
+				<label for="title">제목 :</label>
+				<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요.">
+			</div>
+			<div class="form-group">
+				<label for="title">내용 :</label>
+				<textarea class="form-control" id="content" rows="24" name="contents" placeholder="내용을 입력하세요."></textarea>
+			</div>
+			<input type="submit" class="btn btn-default" id="submitBtn">
 		</div>
-		<div class="form-group">
-			<label for="title">내용 :</label>
-			<textarea class="form-control" id="contents" rows="24" placeholder="내용을 입력하세요."></textarea>
-		</div>
-		<input type="submit" class="btn btn-default" id="submitBtn">
 	</div>
 
 	<script src="lib/bootstrap.min.js"></script>
-	<script src="lib/jquery-3.2.1.min.js"></script>
+	<script
+  src="https://code.jquery.com/jquery-1.11.2.min.js"
+  integrity="sha256-Ls0pXSlb7AYs7evhd+VLnWsZ/AqEHcXBeMZUycz/CcA="
+  crossorigin="anonymous"></script>
 
 	<script type="text/javascript" src="js/board.js"></script>
 </body>
