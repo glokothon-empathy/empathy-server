@@ -149,7 +149,7 @@ ideasRouter.get('/:idea_id/comments', (req, res) => {
   const ideaId = req.params.idea_id;
   const userId = req.app.get('user_id');
   req.app.get('pool').query(
-    `SELECT id, contents, user_id, created_at, updated_at FROM idea_comment WHERE idea_id = ${ideaId};`,
+    `SELECT comment_id, contents, user_id, created_at, updated_at FROM idea_comment WHERE idea_id = ${ideaId};`,
     (err, results, fields) => {
       if (err) {
         res.status(500).json({ msg: 'FAIL' });
