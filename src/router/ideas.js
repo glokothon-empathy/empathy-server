@@ -27,7 +27,15 @@ ideasRouter.put('/', (req, res) => {
 });
 
 ideasRouter.get('/', (req, res) => {
-
+  connection.query(
+    `select * from idea;`,
+    (error, results, fields) => {
+      if (error) {
+        console.log(error.stack);
+      }
+      res.json(results);
+    }
+  );
 });
 
 ideasRouter.get('/:id', (req, res) => {
