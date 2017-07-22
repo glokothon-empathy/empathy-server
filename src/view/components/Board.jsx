@@ -32,20 +32,20 @@ export default class Board extends React.Component {
   render() {
     return(
       <div>
-        <div class="container">
+        <div className="container">
           <h1>아이디어 등록하기</h1>
         </div>
         <hr />
         <div id="formDiv">
-          <div class="form-group">
+          <div className="form-group">
             <label for="title">제목 :</label>
-            <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요." />
+            <input type="text" className="form-control" id="title" placeholder="제목을 입력하세요." />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label for="title">내용 :</label>
-            <textarea class="form-control" id="contents" rows="24" placeholder="내용을 입력하세요." />
+            <textarea className="form-control" id="contents" rows="24" placeholder="내용을 입력하세요." />
           </div>
-          <input type="submit" class="btn btn-default" id="submitBtn" />
+          <input type="submit" className="btn btn-default" id="submitBtn" />
         </div>
       </div>
     );
