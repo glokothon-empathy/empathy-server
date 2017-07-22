@@ -129,7 +129,7 @@ ideasRouter.delete('/:idea_id/comments/:comment_id', (req, res) => {
 });
 
 // 아이디어 댓글 리스트
-ideasRouter.get('/:idea_id/comments/', (req, res) => {
+ideasRouter.get('/:idea_id/comments', (req, res) => {
   const ideaId = req.params.idea_id;
 
   connection.query(
@@ -178,5 +178,54 @@ ideasRouter.delete('/:id/empathy/:empathy_id', (req, res) => {
   );
 });
 
+/******* 아이디어 참여 *******/
+// 아이디어 참여 추가
+ideasRouter.post('/:id/join', (req, res) => {
+  const { user_id, idea_id } = req.body;
+
+  connection.query(
+    `INSERT INTO idea_join (user_id, idea_id) VALUES(${user_id}, ${idea_id});`,
+    (err, results, fields) => {
+      if (err) {
+        res.status(400).json({});
+        console.log(err.stack);
+      }
+      res.status(200).json(results);
+    }
+  );
+});
+
+// 아이디어 참여 삭제
+ideasRouter.delete('/:id/join/:join_id', (req, res) => {
+  const ideaId = req.params.id;
+  const joinId = req.params.join_id;
+
+  connection.query(
+    `DELETE FROM idea_join WHERE id = ${joinId} AND idea_id = ${ideaId};`,
+    (err, results, fields) => {
+      if (err) {
+        res.status(400).json({});
+        console.log(err.stack);
+      }
+      res.status(200).json({ msg: 'OK' });
+    }
+  );
+});
+
+// 아이디어 참여 리스트
+ideasRouter.get('/:idea_id/join', (req, res) => {
+  const ideaId = req.params.idea_id;
+
+  connection.query(
+    `SELECT (user.id, user.name) FROM idea_join INNER JOIN user ON user.id = idea_join.user_id WHERE idea_id = ${ideaId};`,
+    (err, results, fields) => {
+      if (err) {
+        res.status(400).json({});
+        console.log(err.stack);
+      }
+      res.status(200).json(results);
+    }
+  );
+});
 
 export default ideasRouter;
