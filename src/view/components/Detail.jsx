@@ -1,4 +1,5 @@
-import React from 'react'; import $ from 'jQuery';
+import React from 'react';
+import $ from 'jQuery';
 
 
 export default  class Detail extends React.Component {
@@ -37,6 +38,7 @@ export default  class Detail extends React.Component {
           </div>
         </div>
 
+        <hr />
         <div id="content">
           <h2 id="contentTitle">
             상세내용
