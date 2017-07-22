@@ -13,9 +13,34 @@ const connection = mysql.createConnection(mysqlConfig);
 app.use(bodyPaser.json());
 app.use(expressLogger({ path: path.resolve(__dirname, '../express.log') }));
 
-app.get('*', (req, res) => {
-  return res.send('hello')
+app.post('/ideas', (req, res) => {
+  const { contents, user_id } = req.body;
+  connection.query(`insert into idea (contents, user_id) values("${contents}", ${user_id});`,
+    (error, results, fields) => {
+      if (error) {
+        console.log(error.stack);
+      }
+      res.json(results);
+    }
+  );
 });
+
+app.delete('/ideas', (req, res) => {
+
+});
+
+app.put('/ideas', (req, res) => {
+
+});
+
+app.get('/ideas', (req, res) => {
+
+});
+
+app.get('/ideas/:id', (req, res) => {
+
+});
+
 
 app.listen(PORT, (err) => {
   if(err) {
