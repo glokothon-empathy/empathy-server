@@ -15,7 +15,7 @@ ideasRouter.post('/', (req, res) => {
         res.status(500).json({ msg: 'FAIL' });
         console.log(err.stack);
       }
-      res.status(200).json(results);
+      res.status(200).json({ msg: 'OK' });
     }
   );
 });
@@ -33,7 +33,7 @@ ideasRouter.put('/:idea_id', (req, res) => {
         res.status(500).json({ msg: 'FAIL' });
         console.log(err.stack);
       }
-      res.status(200).json(results);
+      res.status(200).json({ msg: 'OK' });
     }
   );
 });
@@ -50,7 +50,7 @@ ideasRouter.delete('/:idea_id', (req, res) => {
         res.status(500).json({ msg: 'FAIL' });
         console.log(err.stack);
       }
-      res.status(200).json(results);
+      res.status(200).json({ msg: 'OK' });
     }
   );
 });
@@ -106,7 +106,7 @@ ideasRouter.post('/:idea_id/comments', (req, res) => {
         res.status(500).json({ msg: 'FAIL' });
         console.log(err.stack);
       }
-      res.status(200).json(results);
+      res.status(200).json({ msg: 'OK' });
     }
   );
 });
@@ -125,7 +125,7 @@ ideasRouter.put('/:idea_id/comments/:comment_id', (req, res) => {
         res.status(500).json({ msg: 'FAIL' });
         console.log(err.stack);
       }
-      res.status(200).json(results);
+      res.status(200).json({ msg: 'OK' });
     }
   );
 });
@@ -185,8 +185,7 @@ ideasRouter.post('/:idea_id/empathy', (req, res) => {
             res.status(500).json({ msg: 'FAIL' });
             console.log(err.stack);
           }
-
-          res.status(200).json(results);
+          res.status(200).json({ msg: 'OK' });
         }
       );
     }
@@ -212,8 +211,7 @@ ideasRouter.delete('/:idea_id/empathy', (req, res) => {
             res.status(500).json({ msg: 'FAIL' });
             console.log(err.stack);
           }
-
-          res.status(200).json(results);
+          res.status(200).json({ msg: 'OK' });
         }
       );
     }
@@ -240,7 +238,7 @@ ideasRouter.post('/:idea_id/join', (req, res) => {
             res.status(500).json({ msg: 'FAIL' });
             console.log(err.stack);
           }
-          res.status(200).json(results);
+          res.status(200).json({ msg: 'OK' });
         }
       );
     }
@@ -266,7 +264,7 @@ ideasRouter.delete('/:idea_id/join', (req, res) => {
             res.status(500).json({ msg: 'FAIL' });
             console.log(err.stack);
           }
-          res.status(200).json(results);
+          res.status(200).json({ msg: 'OK' });
         }
       );
     }
