@@ -7,6 +7,7 @@ import mysqlConfig from './mysql.config';
 
 import ideasRouter from './router/ideas';
 import userRouter from './router/user';
+import tipRouter from './router/tip';
 
 const app = express();
 const PORT = 3000;
@@ -32,11 +33,11 @@ var allowCORS = function(req, res, next) {
 // 이 부분은 app.use(router) 전에 추가하도록 하자
 app.use(allowCORS);
  
-
 // 라우터 설정
 app.use(express.static(path.resolve(__dirname, '../public')));
 app.use('/ideas', ideasRouter);
 app.use('/users', userRouter);
+app.use('/tips', tipRouter);
 
 app.listen(PORT, (err) => {
   if(err) {

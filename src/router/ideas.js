@@ -44,7 +44,7 @@ ideasRouter.delete('/:idea_id', (req, res) => {
   const userId = req.app.get('user_id');
 
   req.app.get('pool').query(
-    `DELETE FROM idea WHERE id = ${ideaId};`,
+    `DELETE FROM idea WHERE idea_id = ${ideaId};`,
     (err, results, fields) => {
       if (err) {
         res.status(500).json({ msg: 'FAIL' });
