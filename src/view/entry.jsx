@@ -9,6 +9,7 @@ import IdeaList from './components/IdeaList';
 import Navbar from './components/Navbar';
 import Detail from './components/Detail';
 import Profile from './components/Profile';
+import Board from './components/Board';
 
 const history = CreateBrowserHistory();
 
@@ -19,6 +20,7 @@ ReactDOM.render(
       <Route exact path="/" component={IdeaList} />
       <Route exact path="/detail/:idea_id" component={Detail} />
       <Route exact path="/profile/:owner_id" component={Profile} />
+      <Route exact path="/board" component={Board} />
     </div>
   </Router>
   , document.getElementById('root'),
